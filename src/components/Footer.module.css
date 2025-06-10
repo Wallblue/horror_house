@@ -1,0 +1,29 @@
+.footer {
+  background-color: #1f2937;
+  color: white;
+  padding: 1rem 2rem;
+  max-width: 64rem;
+  margin: 2rem auto 0;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  font-size: 0.9rem;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+}
+
+.listItem {
+  margin-bottom: 0.5rem;
+}
+
+.link {
+  color: #cbd5e1;
+  text-decoration: none;
+}
+
+.link:hover {
+  color: #fbbf24;
+}
