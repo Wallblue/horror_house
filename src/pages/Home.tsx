@@ -1,19 +1,25 @@
 export default function Home() {
   return (
-    <main style={{ maxWidth: '64rem', margin: '2rem auto', padding: '0 1rem' }}>
+    <main>
       <h1>La Maison Horrifique</h1>
       <section>
         <h2>Nos sessions d’escape game</h2>
         <ul>
-          <li>Le Manoir Hanté — Un manoir rempli de mystères et fantômes</li>
-          <li>L’Asile Abandonné — Échappez à l’asile où rôdent d’anciennes âmes perdues</li>
-          <li>La Crypte Maudite — Découvrez les secrets enfouis dans la crypte</li>
+          <li>
+            <strong>Le Manoir Hanté</strong> — Explorez un manoir ancien où hantent des esprits et secrets terrifiants. Préparez-vous à résoudre des énigmes dans un décor gothique.
+          </li>
+          <li>
+            <strong>L’Asile Abandonné</strong> — Echappez à un asile psychiatrique désaffecté, entre mystères sombres et présences inquiétantes. Sensations fortes garanties.
+          </li>
+          <li>
+            <strong>La Crypte Maudite</strong> — Descendez dans une crypte ancestrale remplie de pièges et de malédictions. Chaque pas peut être le dernier, saurez-vous sortir vivant ?
+          </li>
         </ul>
       </section>
       <section>
         <h2>À propos de l’entreprise</h2>
         <p>
-          La Maison Horrifique propose des expériences immersives et terrifiantes, parfaites pour les amateurs de sensations fortes.
+          La Maison Horrifique propose des expériences immersives et terrifiantes, parfaites pour les amateurs de sensations fortes. Notre équipe dévouée veille à créer des univers riches et effrayants pour tous les aventuriers.
         </p>
       </section>
       <section>

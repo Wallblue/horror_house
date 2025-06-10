@@ -1,9 +1,9 @@
 import { useState } from 'react'
 
 const sessionsData = [
-  { id: '1', title: 'Le Manoir Hanté', description: 'Un manoir rempli de mystères et fantômes' },
-  { id: '2', title: 'L’Asile Abandonné', description: 'Échappez à l’asile où rôdent d’anciennes âmes perdues' },
-  { id: '3', title: 'La Crypte Maudite', description: 'Découvrez les secrets enfouis dans la crypte' }
+  { id: '1', title: 'Le Manoir Hanté', description: 'Explorez un manoir ancien où hantent des esprits et secrets terrifiants. Préparez-vous à résoudre des énigmes dans un décor gothique.' },
+  { id: '2', title: 'L’Asile Abandonné', description: 'Echappez à un asile psychiatrique désaffecté, entre mystères sombres et présences inquiétantes. Sensations fortes garanties.' },
+  { id: '3', title: 'La Crypte Maudite', description: 'Descendez dans une crypte ancestrale remplie de pièges et de malédictions. Chaque pas peut être le dernier, saurez-vous sortir vivant ?' }
 ]
 
 export default function Sessions() {
