@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 
-interface NavbarElementProps{
+interface Props {
     url: string
     title: string
 }
 
-export default function NavbarElement({url, title} : NavbarElementProps) {
+export default function NavbarElement({ url, title }: Props) {
     return (
         <li>
             <Link to={url}>{title}</Link>
