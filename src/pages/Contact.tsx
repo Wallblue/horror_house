@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import styles from '../css/Contact.module.css'
 
 export default function Contact() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' })
@@ -14,7 +15,7 @@ export default function Contact() {
   }
 
   return (
-    <main style={{ maxWidth: '32rem', margin: '2rem auto', padding: '0 1rem' }}>
+    <main className={styles.main}>
       <h1>Contact</h1>
       {submitted ? (
         <p>Merci pour votre message, {formData.name} ! Nous vous répondrons rapidement.</p>
@@ -28,7 +29,7 @@ export default function Contact() {
               value={formData.name}
               onChange={handleChange}
               required
-              style={{ width: '100%', padding: '0.5rem', marginBottom: '1rem' }}
+              className={styles.input}
             />
           </div>
           <div>
@@ -39,7 +40,7 @@ export default function Contact() {
               value={formData.email}
               onChange={handleChange}
               required
-              style={{ width: '100%', padding: '0.5rem', marginBottom: '1rem' }}
+              className={styles.input}
             />
           </div>
           <div>
@@ -50,10 +51,10 @@ export default function Contact() {
               onChange={handleChange}
               required
               rows={5}
-              style={{ width: '100%', padding: '0.5rem', marginBottom: '1rem' }}
+              className={styles.textarea}
             />
           </div>
-          <button type="submit" style={{ padding: '0.5rem 1rem' }}>Envoyer</button>
+          <button type="submit" className={styles.button}>Envoyer</button>
         </form>
       )}
     </main>

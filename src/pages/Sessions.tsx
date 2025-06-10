@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import styles from '../css/Session.module.css'
 
 const sessionsData = [
   { id: '1', title: 'Le Manoir Hanté', description: 'Explorez un manoir ancien où hantent des esprits et secrets terrifiants. Préparez-vous à résoudre des énigmes dans un décor gothique.' },
@@ -10,16 +11,20 @@ export default function Sessions() {
   const [selected, setSelected] = useState<string | null>(null)
 
   return (
-    <main style={{ maxWidth: '64rem', margin: '2rem auto', padding: '0 1rem' }}>
+    <main className={styles.main}>
       <h1>Nos Sessions</h1>
-      <ul>
+      <ul className={styles.list}>
         {sessionsData.map(session => (
-          <li key={session.id} style={{ marginBottom: '1rem' }}>
-            <button onClick={() => setSelected(session.id)} style={{ cursor: 'pointer', fontWeight: 'bold' }}>
+          <li key={session.id} className={styles.item}>
+            <button
+              onClick={() => setSelected(session.id)}
+              className={styles.button}
+              type="button"
+            >
               {session.title}
             </button>
             {selected === session.id && (
-              <p style={{ marginTop: '0.5rem' }}>{session.description}</p>
+              <p className={styles.description}>{session.description}</p>
             )}
           </li>
         ))}

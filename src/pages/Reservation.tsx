@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import styles from '../css/Reservation.module.css'
 
 export default function Reservation() {
   const [formData, setFormData] = useState({ name: '', email: '', session: '' })
@@ -14,7 +15,7 @@ export default function Reservation() {
   }
 
   return (
-    <main style={{ maxWidth: '32rem', margin: '2rem auto', padding: '0 1rem' }}>
+    <main className={styles.main}>
       <h1>Réservation</h1>
       {submitted ? (
         <p>Merci pour votre réservation, {formData.name} ! Nous vous contacterons par email.</p>
@@ -28,7 +29,7 @@ export default function Reservation() {
               value={formData.name}
               onChange={handleChange}
               required
-              style={{ width: '100%', padding: '0.5rem', marginBottom: '1rem' }}
+              className={styles.input}
             />
           </div>
           <div>
@@ -39,7 +40,7 @@ export default function Reservation() {
               value={formData.email}
               onChange={handleChange}
               required
-              style={{ width: '100%', padding: '0.5rem', marginBottom: '1rem' }}
+              className={styles.input}
             />
           </div>
           <div>
@@ -49,7 +50,7 @@ export default function Reservation() {
               value={formData.session}
               onChange={handleChange}
               required
-              style={{ width: '100%', padding: '0.5rem', marginBottom: '1rem' }}
+              className={styles.select}
             >
               <option value="">-- Choisissez une session --</option>
               <option value="Le Manoir Hanté">Le Manoir Hanté</option>
@@ -57,7 +58,7 @@ export default function Reservation() {
               <option value="La Crypte Maudite">La Crypte Maudite</option>
             </select>
           </div>
-          <button type="submit" style={{ padding: '0.5rem 1rem' }}>Réserver</button>
+          <button type="submit" className={styles.button}>Réserver</button>
         </form>
       )}
     </main>
