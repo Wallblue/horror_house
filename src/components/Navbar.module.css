@@ -1,0 +1,24 @@
+.nav {
+  background-color: #111827;
+  color: white;
+  padding: 1rem 2rem;
+  display: flex;
+  gap: 1.5rem;
+  max-width: 64rem;
+  margin: 0 auto;
+}
+
+.link {
+  color: red;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.linkActive {
+  color: #fbbf24;
+  font-weight: 700;
+}
+
+.link:hover {
+  color: #fbbf24;
+}

@@ -1,15 +1,26 @@
-import { Link } from 'react-router-dom'
-import NavbarElement from './NavbarElement'
+import { Link, useLocation } from 'react-router-dom'
+import styles from './Navbar.module.css'
 
 export default function Navbar() {
+  const location = useLocation()
+  const links = [
+    { to: '/', label: 'Accueil' },
+    { to: '/sessions', label: 'Sessions' },
+    { to: '/reservation', label: 'Réservation' },
+    { to: '/contact', label: 'Contact' }
+  ]
+
   return (
-    <nav>
-      <ul>
-        <NavbarElement url='/' title='Accueil'/>
-        <NavbarElement url='/sessions' title='Sessions'/>
-        <NavbarElement url='/reservation' title='Réservations'/>
-        <NavbarElement url='/contact' title='Contact'/>
-      </ul>
+    <nav className={styles.nav}>
+      {links.map(({ to, label }) => (
+        <Link
+          key={to}
+          to={to}
+          className={`${styles.link} \${location.pathname === to ? styles.linkActive : ''}`}
+        >
+          {label}
+        </Link>
+      ))}
     </nav>
   )
 }
