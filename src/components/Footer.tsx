@@ -1,18 +1,24 @@
 import { Link } from 'react-router-dom'
 import styles from './Footer.module.css'
+import LinkLister, { LinkItem } from './LinkLister'
 
 export default function Footer() {
+
+  const networkLinks : LinkItem[] = [
+    {href: 'https://facebook.com/', title: 'Facebook'},
+    {href: 'https://www.instagram.com/', title: 'Instagram'}
+  ]
+
+  const internalLinks : LinkItem[] = [
+    {href: '/sessions', title: 'Sessions'},
+    {href: '/mentions', title: 'Mention Légales'},
+    {href: '/contact', title: 'Contact'}
+  ]
+
   return (
     <footer className={styles.footer}>
-      <ul className={styles.list}>
-        <li className={styles.listItem}><a href="#" className={styles.link}>Facebook</a></li>
-        <li className={styles.listItem}><a href="#" className={styles.link}>Instagram</a></li>
-      </ul>
-      <ul className={styles.list}>
-        <li className={styles.listItem}><Link to="/sessions" className={styles.link}>Sessions</Link></li>
-        <li className={styles.listItem}><Link to="/mentions" className={styles.link}>Mentions légales</Link></li>
-        <li className={styles.listItem}><Link to="/contact" className={styles.link}>Contact</Link></li>
-      </ul>
+      <LinkLister links={networkLinks} />
+      <LinkLister links={internalLinks} />
     </footer>
   )
 }
