@@ -1,4 +1,4 @@
-
+import { useEffect } from 'react'
 import styles from './Footer.module.css'
 import SmartLink from "./SmartLink"
 
@@ -10,24 +10,29 @@ export interface LinkItem{
 interface LinkListerProps{
     links: LinkItem[]
     className?: string
+    listTitle?: string
 }
 
-export default function LinkLister({links} : LinkListerProps) {
+export default function LinkLister({links, className, listTitle} : LinkListerProps) {
     if(!links || links.length == 0)
         return null
 
     return (
-        <ul className={styles.list}>
-            {
-                links.map(link =>
-                    <li key={link.href}>
-                        <SmartLink
-                            href={link.href}
-                            title={link.title}
-                        />
-                    </li>
-                )
-            }
-        </ul>
+        <section className={styles.linkSection}>
+            {listTitle && <h3 className={styles.linkListTitle}>{listTitle}</h3>}
+            <ul className={styles.list}>
+                {
+                    links.map(link =>{
+                        return (<li key={link.href}>
+                            <SmartLink
+                                href={link.href}
+                                title={link.title}
+                            />
+                        </li>)
+                    }
+                    )
+                }
+            </ul>
+        </section>
     )
 }

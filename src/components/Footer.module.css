@@ -26,3 +26,13 @@
 .link:hover {
   color: #fbbf24;
 }
+
+.linkListTitle {
+  margin: 0;
+}
+
+.linkSection {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

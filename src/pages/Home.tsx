@@ -22,11 +22,6 @@ export default function Home() {
           La Maison Horrifique propose des expériences immersives et terrifiantes, parfaites pour les amateurs de sensations fortes. Notre équipe dévouée veille à créer des univers riches et effrayants pour tous les aventuriers.
         </p>
       </section>
-      <section>
-        <h2>Contactez-nous</h2>
-        <p>Email : contact@lamaisonhorrifique.fr</p>
-        <p>Téléphone : 01 23 45 67 89</p>
-      </section>
     </main>
   )
 }

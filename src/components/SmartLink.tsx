@@ -14,7 +14,7 @@ export default function SmartLink({href, children, title, ...rest}: SmartLinkPro
     if(isExternal){
         return (
             <a
-            href="#"
+            href={href}
             className={styles.link}
             target='_blank'
             rel='noopener noreferrer'
