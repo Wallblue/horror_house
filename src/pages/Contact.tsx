@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import styles from '../css/Contact.module.css'
+import ContactForm from '../components/ContactForm'
 
 export default function Contact() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' })
@@ -20,42 +21,7 @@ export default function Contact() {
       {submitted ? (
         <p>Merci pour votre message, {formData.name} ! Nous vous répondrons rapidement.</p>
       ) : (
-        <form onSubmit={handleSubmit}>
-          <div>
-            <label>Nom</label><br />
-            <input
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              required
-              className={styles.input}
-            />
-          </div>
-          <div>
-            <label>Email</label><br />
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-              className={styles.input}
-            />
-          </div>
-          <div>
-            <label>Message</label><br />
-            <textarea
-              name="message"
-              value={formData.message}
-              onChange={handleChange}
-              required
-              rows={5}
-              className={styles.textarea}
-            />
-          </div>
-          <button type="submit" className={styles.button}>Envoyer</button>
-        </form>
+        <ContactForm formdata={formData} setFormdata={setFormData} setSubmitted={setSubmitted} />
       )}
     </main>
   )
