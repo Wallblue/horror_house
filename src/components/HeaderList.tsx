@@ -9,8 +9,8 @@ export interface HeaderElement {
 
 export default function HeaderList({elements} : HeaderListProps) {
     return (<ul>
-        {elements.map((element: HeaderElement) => 
-            <li><strong>{element.header}</strong> — {element.text}</li>
+        {elements.map((element: HeaderElement, i : number) => 
+            <li key={element.header + i}><strong>{element.header}</strong> — {element.text}</li>
         )}
     </ul>)
 }

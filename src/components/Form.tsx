@@ -21,8 +21,9 @@ export default function Form<T>({formdata, setFormdata, setSubmitted, fields, su
     
     return (
         <form onSubmit={handleSubmit}>
-            {fields.map( (field : Field) => (
+            {fields.map( (field : Field, i: number) => (
                 <FormField
+                key={i}
                 {...field}
                 onChange={handleChange}
                 />

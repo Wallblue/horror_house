@@ -63,7 +63,7 @@ export default function FormField(props : FormFieldProps) {
                     onChange={props.onChange}
                     required={required === undefined ? true : required}
                     className={styles.input}>
-                        {props.options.map((option : Option) => <option value={option.value}>{option.text}</option>)}
+                        {props.options.map((option : Option, i: number) => <option key={option.value + i} value={option.value}>{option.text}</option>)}
                 </select>)
             break;
         default:
