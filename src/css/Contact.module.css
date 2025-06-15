@@ -3,14 +3,3 @@
     margin: 2rem auto;
     padding: 0 1rem;
 }
-
-.input,
-.textarea {
-    width: 100%;
-    padding: 0.5rem;
-    margin-bottom: 1rem;
-}
-
-.button {
-    padding: 0.5rem 1rem;
-}

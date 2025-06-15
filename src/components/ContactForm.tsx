@@ -1,5 +1,6 @@
-import FormField, { FormFieldProps } from "./FormField"
-import styles from '../css/Contact.module.css'
+import FormField, { Field, FormFieldProps } from "./FormField"
+import Button from "./Button"
+import Form from "./Form"
 
 export interface ContactFormdata {
     name: string,
@@ -14,15 +15,6 @@ interface ContactFormProps {
 }
 
 export default function ContactForm({formdata, setFormdata, setSubmitted} : ContactFormProps) {
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        setFormdata({ ...formdata, [e.target.name]: e.target.value })
-    }
-
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault()
-        setSubmitted(true)
-    }
-
     const fields : Field[] = [
         {label: 'Nom', type: 'text', name: 'name', value: formdata.name},
         {label: 'Email', type: 'email', name: 'email', value: formdata.email},
@@ -30,20 +22,12 @@ export default function ContactForm({formdata, setFormdata, setSubmitted} : Cont
     ]
     
     return (
-        <form onSubmit={handleSubmit}>
-            {fields.map( (field : Field) => (
-                <FormField
-                label={field.label}
-                type={field.type}
-                value={field.value}
-                name={field.name}
-                rows={field.rows}
-                onChange={handleChange}
-                />
-            ))}
-            <button type="submit" className={styles.button}>Envoyer</button>
-        </form>
+        <Form<ContactFormdata>
+            formdata={formdata}
+            setFormdata={setFormdata}
+            setSubmitted={setSubmitted}
+            fields={fields}
+            submitText="Envoyer"
+        />
     )
 }
-
-type Field = Omit<FormFieldProps, 'onChange'>

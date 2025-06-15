@@ -1,44 +1,95 @@
-import { ChangeEventHandler } from "react"
-import styles from '../css/Contact.module.css'
+import { ChangeEventHandler, JSX, ReactNode } from "react"
+import styles from '../css/Form.module.css'
 
 type InputType = 'button' | 'checkbox' | 'color' | 'date' | 'datetime-local'
   | 'email' | 'file' | 'hidden' | 'image' | 'month' | 'number'
   | 'password' | 'radio' | 'range' | 'reset' | 'search' | 'submit'
   | 'tel' | 'text' | 'time' | 'url' | 'week'
 
-export interface FormFieldProps {
+interface CommonProps{
     label: string
     name: string
-    type: InputType | 'textarea'
     value: string
-    onChange: ChangeEventHandler<HTMLTextAreaElement|HTMLInputElement>
-    required?: boolean,
+    required?: boolean
+}
+
+type InputProps = CommonProps & {
+    type: InputType
+    onChange: ChangeEventHandler<HTMLInputElement>
+}
+
+type TextareaProps = CommonProps & {
+    type: 'textarea'
+    onChange: ChangeEventHandler<HTMLTextAreaElement>
     rows?: number
 }
 
-export default function FormField({label, name, type, value, onChange, required, rows} : FormFieldProps) {
+type SelectProps = CommonProps & {
+    type: 'select'
+    onChange: ChangeEventHandler<HTMLSelectElement>
+    options: Option[]
+}
+
+/*export interface FormFieldProps {
+    label: string
+    name: string
+    type: InputType | 'textarea' | 'select'
+    value: string
+    onChange: ChangeEventHandler<HTMLTextAreaElement|HTMLInputElement|HTMLSelectElement>
+    required?: boolean
+    rows?: number
+    options?: Option[]
+}*/
+export type FormFieldProps = InputProps | TextareaProps | SelectProps
+
+export interface Option{
+    value: string
+    text: string
+}
+
+export type Field = Omit<InputProps, 'onChange'>
+  | Omit<TextareaProps, 'onChange'>
+  | Omit<SelectProps, 'onChange'>
+
+export default function FormField(props : FormFieldProps) {
+    const { label, name, value, required } = props
+    let field : JSX.Element;
+
+    switch(props.type){
+        case 'textarea':
+            field = (<textarea
+                    name={name}
+                    value={value}
+                    onChange={props.onChange}
+                    rows={props.rows}
+                    required={required === undefined ? true : required}
+                    className={styles.textarea}
+                />)
+            break;
+        case 'select':
+            field = (<select
+                    name={name}
+                    value={value}
+                    onChange={props.onChange}
+                    required={required === undefined ? true : required}
+                    className={styles.input}>
+                        {props.options.map((option : Option) => <option value={option.value}>{option.text}</option>)}
+                </select>)
+            break;
+        default:
+            field = (<input
+                    type={props.type}
+                    name={name}
+                    value={value}
+                    onChange={props.onChange}
+                    required={required === undefined ? true : required}
+                    className={styles.input}
+                />)
+    }
     return (
         <div>
             <label htmlFor={name}>{label}</label>
-            {type === 'textarea' ? (
-                <textarea
-                name={name}
-                value={value}
-                onChange={onChange}
-                rows={rows}
-                required={required === undefined ? true : required}
-                className={styles.textarea}
-                />
-            ) : (
-                <input
-                type={type}
-                name={name}
-                value={value}
-                onChange={onChange}
-                required={required === undefined ? true : required}
-                className={styles.input}
-                />
-            )}
+            {field}
         </div>
     )
 }
