@@ -1,20 +1,18 @@
+import HeaderList, { HeaderElement } from "../components/HeaderList"
+
 export default function Home() {
+  const sessionsInfos : HeaderElement[] = [
+    {header:'Le Manoir Hanté', text:'Explorez un manoir ancien où hantent des esprits et secrets terrifiants. Préparez-vous à résoudre des énigmes dans un décor gothique.'},
+    {header:'L’Asile Abandonné', text:'Echappez à un asile psychiatrique désaffecté, entre mystères sombres et présences inquiétantes. Sensations fortes garanties.'},
+    {header:'La Crypte Maudite', text:'Descendez dans une crypte ancestrale remplie de pièges et de malédictions. Chaque pas peut être le dernier, saurez-vous sortir vivant ?'}
+  ]
+
   return (
     <main>
       <h1>La Maison Horrifique</h1>
       <section>
         <h2>Nos sessions d’escape game</h2>
-        <ul>
-          <li>
-            <strong>Le Manoir Hanté</strong> — Explorez un manoir ancien où hantent des esprits et secrets terrifiants. Préparez-vous à résoudre des énigmes dans un décor gothique.
-          </li>
-          <li>
-            <strong>L’Asile Abandonné</strong> — Echappez à un asile psychiatrique désaffecté, entre mystères sombres et présences inquiétantes. Sensations fortes garanties.
-          </li>
-          <li>
-            <strong>La Crypte Maudite</strong> — Descendez dans une crypte ancestrale remplie de pièges et de malédictions. Chaque pas peut être le dernier, saurez-vous sortir vivant ?
-          </li>
-        </ul>
+        <HeaderList elements={sessionsInfos} />
       </section>
       <section>
         <h2>À propos de l’entreprise</h2>
