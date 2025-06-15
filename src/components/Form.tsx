@@ -1,5 +1,5 @@
 import Button from "./Button"
-import FormField, { Field, FormFieldProps } from "./FormField"
+import FormField, { Field } from "./FormField"
 
 interface FormProps<T> {
     formdata: T

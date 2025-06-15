@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import styles from './Footer.module.css'
 import SmartLink from "./SmartLink"
 

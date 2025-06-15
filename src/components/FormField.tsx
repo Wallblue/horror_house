@@ -1,4 +1,4 @@
-import { ChangeEventHandler, JSX, ReactNode } from "react"
+import { ChangeEventHandler, JSX } from "react"
 import styles from '../css/Form.module.css'
 
 type InputType = 'button' | 'checkbox' | 'color' | 'date' | 'datetime-local'
@@ -30,16 +30,6 @@ type SelectProps = CommonProps & {
     options: Option[]
 }
 
-/*export interface FormFieldProps {
-    label: string
-    name: string
-    type: InputType | 'textarea' | 'select'
-    value: string
-    onChange: ChangeEventHandler<HTMLTextAreaElement|HTMLInputElement|HTMLSelectElement>
-    required?: boolean
-    rows?: number
-    options?: Option[]
-}*/
 export type FormFieldProps = InputProps | TextareaProps | SelectProps
 
 export interface Option{
