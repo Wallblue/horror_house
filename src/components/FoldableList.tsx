@@ -2,8 +2,11 @@ import { useState } from 'react'
 import styles from '../css/Session.module.css'
 import Button from './Button'
 
-interface FoldableListProps {
-    elements: FoldableListElement[]
+interface FoldableListProps<T> {
+    elements: T[];
+    getId: (item: T) => number;
+    getButtonText: (item: T) => string;
+    getText: (item: T) => string;
 }
 
 export interface FoldableListElement {
@@ -12,20 +15,20 @@ export interface FoldableListElement {
     text: string
 }
 
-export default function FoldableList({elements} : FoldableListProps) {
+export default function FoldableList<T>({elements, getId, getButtonText, getText} : FoldableListProps<T>) {
     const [selected, setSelected] = useState<number | null>(null)
 
     return (<ul className={styles.list}>
         {elements.map(element => (
-          <li key={element.id} className={styles.item}>
+          <li key={getId(element)} className={styles.item}>
             <Button
-              onClick={() => setSelected(element.id)}
+              onClick={() => setSelected(getId(element))}
               type="button"
             >
-              {element.buttonText}
+              {getButtonText(element)}
             </Button>
-            {selected === element.id && (
-              <p className={styles.description}>{element.text}</p>
+            {selected === getId(element) && (
+              <p className={styles.description}>{getText(element)}</p>
             )}
           </li>
         ))}

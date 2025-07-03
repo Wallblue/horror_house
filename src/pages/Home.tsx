@@ -1,3 +1,4 @@
+import Button from "../components/Button"
 import HeaderList, { HeaderElement } from "../components/HeaderList"
 
 export default function Home() {
@@ -5,7 +6,13 @@ export default function Home() {
     {header:'Le Manoir Hanté', text:'Explorez un manoir ancien où hantent des esprits et secrets terrifiants. Préparez-vous à résoudre des énigmes dans un décor gothique.'},
     {header:'L’Asile Abandonné', text:'Echappez à un asile psychiatrique désaffecté, entre mystères sombres et présences inquiétantes. Sensations fortes garanties.'},
     {header:'La Crypte Maudite', text:'Descendez dans une crypte ancestrale remplie de pièges et de malédictions. Chaque pas peut être le dernier, saurez-vous sortir vivant ?'}
-  ]
+  ];
+
+  const onClick = async () => {
+    const res = await fetch("https://maison.hor/test");
+    const resj = await res.json();
+    console.log(resj);
+  }
 
   return (
     <main>
@@ -20,6 +27,7 @@ export default function Home() {
           La Maison Horrifique propose des expériences immersives et terrifiantes, parfaites pour les amateurs de sensations fortes. Notre équipe dévouée veille à créer des univers riches et effrayants pour tous les aventuriers.
         </p>
       </section>
+      <Button type="button" onClick={onClick}>Test</Button>
     </main>
   )
 }
