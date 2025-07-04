@@ -17,7 +17,7 @@ export default function Sessions() {
     }
 
     asynchronous();
-  });
+  }, []);
 
   const fetchRooms = async () : Promise<Room[]> => {
     const res = await fetch(API_DOMAIN + "/rooms");
