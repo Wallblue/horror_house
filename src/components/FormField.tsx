@@ -1,5 +1,5 @@
 import { ChangeEventHandler, JSX } from "react"
-import styles from '../css/Form.module.css'
+import styles from '../css/App.module.css'
 
 type InputType = 'button' | 'checkbox' | 'color' | 'date' | 'datetime-local'
   | 'email' | 'file' | 'hidden' | 'image' | 'month' | 'number'

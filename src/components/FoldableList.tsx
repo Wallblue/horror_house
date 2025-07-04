@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import styles from '../css/Session.module.css'
+import styles from '../css/App.module.css'
 import Button from './Button'
 
 interface FoldableListProps<T> {
@@ -18,9 +18,9 @@ export interface FoldableListElement {
 export default function FoldableList<T>({elements, getId, getButtonText, getText} : FoldableListProps<T>) {
     const [selected, setSelected] = useState<number | null>(null)
 
-    return (<ul className={styles.list}>
+    return (<ul className={styles.foldableList}>
         {elements.map(element => (
-          <li key={getId(element)} className={styles.item}>
+          <li key={getId(element)} className={styles.foldableListItem}>
             <Button
               onClick={() => setSelected(getId(element))}
               type="button"

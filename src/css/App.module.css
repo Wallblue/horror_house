@@ -1,0 +1,40 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.main {
+  flex: 1;
+  max-width: 64rem;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  width: 100%;
+}
+
+.form {
+  max-width: 32rem;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.input,
+.select,
+.textarea {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.button {
+  padding: 0.5rem 1rem;
+}
+
+.foldableList {
+  list-style-type: none;
+}
+
+.foldableListItem {
+  padding: 20px 0 20px 0;
+}

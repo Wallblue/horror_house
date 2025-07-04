@@ -1,5 +1,5 @@
 import Button from "../components/Button"
-import HeaderList, { HeaderElement } from "../components/HeaderList"
+import HeaderList, {HeaderElement} from "../components/HeaderList"
 
 export default function Home() {
   const sessionsInfos : HeaderElement[] = [
@@ -9,13 +9,13 @@ export default function Home() {
   ];
 
   const onClick = async () => {
-    const res = await fetch("https://maison.hor/test");
+    const res = await fetch("https://maison.hor/rooms");
     const resj = await res.json();
     console.log(resj);
   }
 
   return (
-    <main>
+    <>
       <h1>La Maison Horrifique</h1>
       <section>
         <h2>Nos sessions d’escape game</h2>
@@ -27,7 +27,6 @@ export default function Home() {
           La Maison Horrifique propose des expériences immersives et terrifiantes, parfaites pour les amateurs de sensations fortes. Notre équipe dévouée veille à créer des univers riches et effrayants pour tous les aventuriers.
         </p>
       </section>
-      <Button type="button" onClick={onClick}>Test</Button>
-    </main>
+    </>
   )
 }

@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import styles from '../css/Form.module.css'
+import styles from '../css/App.module.css'
 
 interface ButtonProps{
     type: "submit" | "reset" | "button" | undefined

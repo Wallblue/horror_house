@@ -1,5 +1,4 @@
-
-import styles from './Footer.module.css'
+import styles from '../css/Footer.module.css'
 import { Link, LinkProps } from "react-router-dom";
 
 // We can have props of <Link> and from <a>

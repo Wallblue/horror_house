@@ -1,7 +1,6 @@
-import { useEffect, useState } from 'react'
-import styles from '../css/Session.module.css'
+import {useEffect, useState} from 'react'
 import FoldableList from '../components/FoldableList'
-import { API_DOMAIN } from '../const';
+import {API_DOMAIN} from '../const';
 
 export interface Room{
   id: number;
@@ -27,7 +26,7 @@ export default function Sessions() {
   }
 
   return (
-    <main className={styles.main}>
+    <>
       <h1>Nos Sessions</h1>
       <FoldableList
         elements={rooms}
@@ -35,6 +34,6 @@ export default function Sessions() {
         getButtonText={(room) => room.name}
         getText={(room) => room.description}
       />
-    </main>
+    </>
   )
 }

@@ -1,6 +1,6 @@
-import { useState } from 'react'
-import styles from '../css/Reservation.module.css'
-import { FormFieldProps } from '../components/FormField'
+import {useState} from 'react'
+import styles from '../css/App.module.css'
+import {FormFieldProps} from '../components/FormField'
 import BookingForm from '../components/BookingForm'
 
 export default function Reservation() {
@@ -8,7 +8,7 @@ export default function Reservation() {
   const [submitted, setSubmitted] = useState(false)
 
   return (
-    <main className={styles.main}>
+    <div className={styles.form}>
       <h1>Réservation</h1>
       {submitted ? (
         <p>Merci pour votre réservation, {formData.name} ! Nous vous contacterons par email.</p>
@@ -19,7 +19,7 @@ export default function Reservation() {
           setSubmitted={setSubmitted}
         />
       )}
-    </main>
+    </div>
   )
 }
 
