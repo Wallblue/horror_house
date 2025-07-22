@@ -1,5 +1,6 @@
 import { Link, useLocation } from 'react-router-dom'
 import styles from '../css/Navbar.module.css'
+import ThemeToggle from './ThemeToggle'
 
 const links = [
   { to: '/', label: 'Accueil' },
@@ -21,6 +22,7 @@ export default function Navbar() {
           {label}
         </Link>
       ))}
+      <ThemeToggle />
     </nav>
   )
 }
