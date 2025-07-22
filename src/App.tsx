@@ -1,6 +1,6 @@
 import Navbar from './navbar/Navbar';
 import Footer from './components/Footer';
-import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Routes, Route, Navigate} from 'react-router-dom';
 import Home from './pages/Home';
 import Sessions from './pages/Sessions';
 import Reservation from './pages/Reservation';
@@ -22,6 +22,7 @@ export default function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/mentions" element={<Mentions />} />
             <Route path="/admin" element={<Administration />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>
         <Footer />
