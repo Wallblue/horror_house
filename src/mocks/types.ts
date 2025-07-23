@@ -57,3 +57,44 @@ export interface BookingPost {
   customerEmail: string;
   participantCount: number;
 }
+
+export type UserRole = 'Game Master' | 'Manager' | 'Technicien' | 'Receptioniste';
+
+export interface User {
+  id: number;
+  password: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  role: UserRole;
+  hireDate: string;
+}
+
+export interface UserWithoutPwd {
+  id: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+  role: UserRole;
+  hireDate: string;
+}
+
+export interface UserPost {
+  firstName: string;
+  password: string;
+  lastName: string;
+  email: string;
+  role: UserRole;
+}
+
+export interface UserPatch {
+  email?: string;
+  role?: UserRole;
+}
+
+export interface PaginatedResponse<T> {
+  data: T[];
+  page: number;
+  total: number;
+  sub_total: number;
+}

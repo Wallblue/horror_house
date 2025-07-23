@@ -1,5 +1,5 @@
 import { http, HttpResponse } from "msw";
-import { Room, TimeSlot, Booking, BookingPost } from "./types";
+import { Room, TimeSlot, Booking, BookingPost, User, UserPost, UserPatch, PaginatedResponse, UserWithoutPwd } from "./types";
 
 const generateTimeSlots = (): TimeSlot[] => {
   const slots: TimeSlot[] = [];
@@ -66,6 +66,80 @@ const clientRoomsData: Room[] = [
 
 let bookingsData: Booking[] = [];
 
+export const usersData: User[] = [
+  {
+    id: 1,
+    password: "alice",
+    firstName: 'Alice',
+    lastName: 'Durand',
+    email: 'alice.durand@escaperoom.com',
+    role: 'Manager',
+    //isActive: true,
+    hireDate: '2022-03-15',
+  },
+  {
+    id: 2,
+    password: "lucas",
+    firstName: 'Lucas',
+    lastName: 'Bernard',
+    email: 'lucas.bernard@escaperoom.com',
+    role: 'Game Master',
+    //isActive: true,
+    hireDate: '2023-06-01',
+  },
+  {
+    id: 3,
+    password: "sophie",
+    firstName: 'Sophie',
+    lastName: 'Martin',
+    email: 'sophie.martin@escaperoom.com',
+    role: 'Receptioniste',
+    //isActive: false,
+    hireDate: '2021-11-12',
+  },
+  {
+    id: 4,
+    password: "antoine",
+    firstName: 'Antoine',
+    lastName: 'Leclerc',
+    email: 'antoine.leclerc@escaperoom.com',
+    role: 'Technicien',
+    //isActive: true,
+    hireDate: '2020-08-24',
+  },
+  {
+    id: 5,
+    password: "julie",
+    firstName: 'Julie',
+    lastName: 'Moreau',
+    email: 'julie.moreau@escaperoom.com',
+    role: 'Game Master',
+    //isActive: true,
+    hireDate: '2023-01-10',
+  },
+  {
+    id: 6,
+    password: "stéphane",
+    firstName: 'Stéphane',
+    lastName: 'Debré',
+    email: 'steph.debre@escaperoom.com',
+    role: 'Technicien',
+    //isActive: true,
+    hireDate: '2024-01-16',
+  },
+  {
+    id: 7,
+    password: "gecko",
+    firstName: 'Gecko',
+    lastName: 'Moria',
+    email: 'gecko.moria@escaperoom.com',
+    role: 'Receptioniste',
+    //isActive: true,
+    hireDate: '2025-02-22',
+  },
+];
+
+
 export const clientHandlers = [
   http.get("https://maison.hor/client/rooms", () => {
     return HttpResponse.json(clientRoomsData);
@@ -131,4 +205,67 @@ export const clientHandlers = [
   http.get("https://maison.hor/client/bookings", () => {
     return HttpResponse.json(bookingsData);
   }),
-];
+
+  http.get("https://maison.hor/users", ({request}) => {
+    const url = new URL(request.url);
+    const page = parseInt(url.searchParams.get("page") ?? "1", 10);
+    const limit = parseInt(url.searchParams.get("limit") ?? "10", 10);
+
+    const start = page * limit;
+    const users : UserWithoutPwd[] = usersData.slice(start, start + limit).map(({password, ...rest}) => rest);
+
+    return HttpResponse.json<PaginatedResponse<UserWithoutPwd>>({
+      data: users,
+      page: page,
+      total: usersData.length,
+      sub_total: users.length,
+    });
+  }),
+
+  http.get("https://maison.hor/users/:id", ({params}) => {
+    const user = usersData.find(user => user.id === parseInt(params.id as string, 10));
+    if (user === undefined) {
+      return HttpResponse.json({ error: 'Utilisateur non trouvé' }, { status: 404 });
+    }
+    return HttpResponse.json(user);
+  }),
+
+  http.post("https://maison.hor/users/", async ({request}) => {
+    const reqBody = await request.json() as UserPost;
+    const newUser : User = {
+      id: usersData[usersData.length - 1].id + 1,
+      ...reqBody,
+      hireDate: new Date().toISOString(),
+    };
+
+    usersData.push(newUser);
+    return HttpResponse.json(newUser);
+  }),
+
+  http.patch("https://maison.hor/users/:id", async ({params, request}) => {
+    const reqBody = await request.json() as UserPatch;
+    const user = usersData.find(user => user.id === parseInt(params.id as string, 10));
+    if (user === undefined) {
+      return HttpResponse.json({ error: 'Utilisateur non trouvé' }, { status: 404 });
+    }
+
+    if (reqBody.email !== undefined) {
+      user.email = reqBody.email;
+    }
+
+    if (reqBody.role !== undefined) {
+      user.role = reqBody.role;
+    }
+
+    return HttpResponse.json(user);
+  }),
+
+  http.delete("https://maison.hor/users/:id", ({params}) => {
+    const userIndex = usersData.findIndex(user => user.id === parseInt(params.id as string, 10));
+    if (userIndex === -1) {
+      return HttpResponse.json({ error: 'Utilisateur non trouvé' }, { status: 404 });
+    }
+    usersData.splice(userIndex, 1);
+    return HttpResponse.json({message: "Element deleted."});
+  }),
+]

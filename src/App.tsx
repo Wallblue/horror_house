@@ -9,6 +9,7 @@ import Contact from './pages/Contact';
 import Mentions from './pages/Mentions';
 import styles from './css/App.module.css';
 import Administration from './pages/Administration/Administration';
+import AdminUsersPanel from './pages/Administration/panels/AdminUsersPanel';
 
 export default function App() {
   return (
@@ -25,6 +26,7 @@ export default function App() {
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/mentions" element={<Mentions />} />
                 <Route path="/admin" element={<Administration />} />
+                <Route path="/admin/users" element={<AdminUsersPanel />} />
               </Routes>
             </ErrorBoundary>
           </main>
