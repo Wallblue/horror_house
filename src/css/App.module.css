@@ -31,10 +31,369 @@
   padding: 0.5rem 1rem;
 }
 
+.button:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.button:disabled:hover {
+  background-color: #6c757d;
+}
+
 .foldableList {
   list-style-type: none;
 }
 
 .foldableListItem {
   padding: 20px 0 20px 0;
+}
+
+.sessionCard {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.sessionCard:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.sessionHeader {
+  margin-bottom: 1rem;
+}
+
+.sessionHeader h3 {
+  margin: 0 0 0.5rem 0;
+  color: #333;
+  font-size: 1.5rem;
+}
+
+.sessionMeta {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.theme,
+.duration,
+.price {
+  background: #f5f5f5;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+}
+
+.description {
+  margin: 1rem 0;
+  line-height: 1.6;
+  color: #555;
+}
+
+.sessionDetails {
+  margin: 1rem 0;
+  padding: 1rem;
+  background: #f9f9f9;
+  border-radius: 6px;
+}
+
+.participants {
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.availability {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.9rem;
+}
+
+.availableSpots {
+  color: #28a745;
+  font-weight: 500;
+}
+
+.noSpots {
+  color: #dc3545;
+  font-weight: 500;
+}
+
+.nextDate {
+  color: #666;
+  font-style: italic;
+}
+
+.reserveButton {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 1rem;
+}
+
+.reserveButton:hover {
+  background: #0056b3;
+}
+
+.slotSelector {
+  margin-bottom: 2rem;
+}
+
+.formGroup {
+  margin-bottom: 1.5rem;
+}
+
+.formGroup label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.noSlots {
+  color: #dc3545;
+  font-style: italic;
+  padding: 0.5rem;
+  background: #f8d7da;
+  border: 1px solid #f5c6cb;
+  border-radius: 4px;
+}
+
+.sessionInfo {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 6px;
+  border-left: 4px solid #007bff;
+}
+
+.sessionInfo h4 {
+  margin: 0 0 0.5rem 0;
+  color: #333;
+}
+
+.sessionDescription {
+  margin: 0.5rem 0 0 0;
+  font-size: 0.9rem;
+  color: #666;
+  line-height: 1.4;
+}
+
+.bookingForm {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.participantHint {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.85rem;
+  color: #666;
+  font-style: italic;
+}
+
+.errorList {
+  margin: 1rem 0;
+  padding: 1rem;
+  background: #f8d7da;
+  border: 1px solid #f5c6cb;
+  border-radius: 6px;
+}
+
+.error {
+  margin: 0.25rem 0;
+  color: #721c24;
+  font-size: 0.9rem;
+}
+
+.successMessage {
+  margin: 1rem 0;
+  padding: 1rem;
+  background: #d4edda;
+  border: 1px solid #c3e6cb;
+  border-radius: 6px;
+  color: #155724;
+}
+
+.bookingDetails {
+  background: #f8f9fa;
+  padding: 1rem;
+  border-radius: 6px;
+  margin-top: 1rem;
+}
+
+.bookingDetails h4 {
+  margin: 0 0 0.5rem 0;
+  color: #333;
+}
+
+.bookingDetails p {
+  margin: 0.25rem 0;
+  font-size: 0.9rem;
+}
+
+.errorBoundary {
+  text-align: center;
+  padding: 2rem;
+  margin: 2rem auto;
+  max-width: 600px;
+  background: #f8d7da;
+  border: 1px solid #f5c6cb;
+  border-radius: 8px;
+  color: #721c24;
+}
+
+.errorBoundary h2 {
+  margin-bottom: 1rem;
+  color: #721c24;
+}
+
+.errorDetails {
+  margin: 1rem 0;
+  text-align: left;
+}
+
+.errorDetails summary {
+  cursor: pointer;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.errorDetails pre {
+  background: #f1f1f1;
+  padding: 1rem;
+  border-radius: 4px;
+  overflow-x: auto;
+  font-size: 0.8rem;
+  color: #333;
+}
+
+.loadingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.loading-small {
+  min-height: 100px;
+}
+
+.loading-medium {
+  min-height: 200px;
+}
+
+.loading-large {
+  min-height: 300px;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 1rem;
+}
+
+.spinnerInner {
+  width: 100%;
+  height: 100%;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #dc2626;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loadingMessage {
+  color: #666;
+  font-style: italic;
+  margin: 0;
+}
+
+.errorAlertContainer {
+  margin: 1rem 0;
+}
+
+.errorAlert {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+  border-radius: 6px;
+  border-left: 4px solid;
+}
+
+.errorValidation {
+  background: #fff3cd;
+  border-left-color: #ffc107;
+  color: #856404;
+}
+
+.errorNetwork {
+  background: #d1ecf1;
+  border-left-color: #17a2b8;
+  color: #0c5460;
+}
+
+.errorServer {
+  background: #f8d7da;
+  border-left-color: #dc3545;
+  color: #721c24;
+}
+
+.errorUnknown {
+  background: #e2e3e5;
+  border-left-color: #6c757d;
+  color: #383d41;
+}
+
+.errorContent {
+  display: flex;
+  align-items: flex-start;
+  flex: 1;
+}
+
+.errorIcon {
+  margin-right: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.errorText {
+  flex: 1;
+  line-height: 1.4;
+}
+
+.errorDismiss {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0;
+  margin-left: 1rem;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.errorDismiss:hover {
+  opacity: 1;
 }
