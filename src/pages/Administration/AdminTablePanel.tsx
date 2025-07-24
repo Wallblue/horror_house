@@ -8,9 +8,10 @@ interface AdminTablePanelProps<T extends object>{
   data: PaginatedResponse<T>;
   readonlyTable?: boolean;
   updateData: (page: number, limit: number) => void;
+  hiddenProps?: string[];
 }
 
-export default function AdminTablePanel<T extends object>({tableHeaders, data, readonlyTable = false, updateData}: AdminTablePanelProps<T>) {
+export default function AdminTablePanel<T extends object>({tableHeaders, data, readonlyTable = false, updateData, hiddenProps = []}: AdminTablePanelProps<T>) {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
@@ -30,17 +31,20 @@ export default function AdminTablePanel<T extends object>({tableHeaders, data, r
           <TableRow>
             {tableHeaders.map((header, i) => <TableCell key={i}>{header}</TableCell>)}
           </TableRow>
-          </TableHead>
-          <TableBody>
-            {data.data.map((d, i) => (
-              <AdminTableRow
-                key={i}
-                item={d}
-                onActionClick={_ => console.log("action")}
-                onDeleteClick={_ => console.log("delete")}
-                readOnly={readonlyTable}
-              />
-            ))}
+        </TableHead>
+        <TableBody>
+          {data.data.map((d, i) => {
+            const shownItem = Object.fromEntries(
+              Object.entries(d).filter(([key]) => !hiddenProps.includes(key))
+            );
+            return (<AdminTableRow
+              key={i}
+              item={shownItem}
+              onActionClick={_ => console.log("action")}
+              onDeleteClick={_ => console.log("delete")}
+              readOnly={readonlyTable}
+            />)
+          })}
         </TableBody>
       </Table>
       <TablePagination

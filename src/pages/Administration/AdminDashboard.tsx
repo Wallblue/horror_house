@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, CardContent, Typography, Grid } from '@mui/material';
-import { AccessTime, Explore, People } from '@mui/icons-material';
+import { BookOnline, Explore, People } from '@mui/icons-material';
 import adminStyles from "../../css/Administration.module.css"
 import { To, useNavigate } from 'react-router-dom';
 
@@ -12,8 +12,8 @@ interface Panel{
 
 const panels: Panel[] = [
   { title: 'Utilisateurs', icon: <People fontSize="large" />, to: "/admin/users"},
-  { title: 'Sessions', icon: <Explore fontSize="large" />, to: ""},
-  { title: 'Créneaux', icon: <AccessTime fontSize="large" />, to: ""},
+  { title: 'Sessions', icon: <Explore fontSize="large" />, to: "/admin/sessions"},
+  { title: 'Réservations', icon: <BookOnline fontSize="large" />, to: "/admin/bookings"},
 ];
 
 export default function AdminDashboard() {

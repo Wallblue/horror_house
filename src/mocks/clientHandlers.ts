@@ -141,8 +141,21 @@ export const usersData: User[] = [
 
 
 export const clientHandlers = [
-  http.get("https://maison.hor/rooms", () => {
-    return HttpResponse.json(clientRoomsData);
+  http.get("https://maison.hor/rooms", ({request}) => {
+    const url = new URL(request.url);
+    const page = parseInt(url.searchParams.get("page") ?? "0", 10);
+    const limit = parseInt(url.searchParams.get("limit") ?? "10", 10);
+
+    const start = page * limit;
+    const rooms : Room[] = clientRoomsData.slice(start, start + limit);
+    console.log(page, limit);
+
+    return HttpResponse.json<PaginatedResponse<Room>>({
+      data: rooms,
+      page: page,
+      total: clientRoomsData.length,
+      sub_total: rooms.length,
+    });
   }),
 
   http.get("https://maison.hor/rooms/:id", ({ params }) => {
@@ -202,13 +215,25 @@ export const clientHandlers = [
     return HttpResponse.json(newBooking, { status: 201 });
   }),
 
-  http.get("https://maison.hor/bookings", () => {
-    return HttpResponse.json(bookingsData);
+  http.get("https://maison.hor/bookings", ({request}) => {
+    const url = new URL(request.url);
+    const page = parseInt(url.searchParams.get("page") ?? "0", 10);
+    const limit = parseInt(url.searchParams.get("limit") ?? "10", 10);
+
+    const start = page * limit;
+    const bookings : Booking[] = bookingsData.slice(start, start + limit);
+
+    return HttpResponse.json<PaginatedResponse<Booking>>({
+      data: bookings,
+      page: page,
+      total: bookingsData.length,
+      sub_total: bookings.length,
+    });
   }),
 
   http.get("https://maison.hor/users", ({request}) => {
     const url = new URL(request.url);
-    const page = parseInt(url.searchParams.get("page") ?? "1", 10);
+    const page = parseInt(url.searchParams.get("page") ?? "0", 10);
     const limit = parseInt(url.searchParams.get("limit") ?? "10", 10);
 
     const start = page * limit;

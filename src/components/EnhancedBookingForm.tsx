@@ -2,7 +2,7 @@ import { useState } from 'react';
 import SlotSelector from './SlotSelector';
 import FormField from './FormField';
 import Button from './Button';
-import { Room, TimeSlot, BookingPost } from '../mocks/types';
+import { Room, TimeSlot, BookingPost, PaginatedResponse, Booking } from '../mocks/types';
 import { API_DOMAIN } from '../const';
 import styles from '../css/App.module.css';
 
@@ -120,8 +120,8 @@ export default function EnhancedBookingForm({ initialRoomId, onSubmitted }: Enha
                 throw new Error(errorData.error || 'Erreur lors de la réservation');
             }
 
-            const booking = await response.json();
-            onSubmitted(booking);
+            const booking : PaginatedResponse<Booking> = await response.json();
+            onSubmitted(booking.data);
         } catch (error) {
             setErrors([error instanceof Error ? error.message : 'Erreur lors de la réservation']);
         } finally {

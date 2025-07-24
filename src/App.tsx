@@ -10,6 +10,8 @@ import Mentions from './pages/Mentions';
 import styles from './css/App.module.css';
 import Administration from './pages/Administration/Administration';
 import AdminUsersPanel from './pages/Administration/panels/AdminUsersPanel';
+import AdminSessionsPanel from './pages/Administration/panels/AdminSessionsPanel';
+import AdminBookingsPanel from './pages/Administration/panels/AdminBookingsPanel';
 
 export default function App() {
   return (
@@ -27,6 +29,8 @@ export default function App() {
                 <Route path="/mentions" element={<Mentions />} />
                 <Route path="/admin" element={<Administration />} />
                 <Route path="/admin/users" element={<AdminUsersPanel />} />
+                <Route path="/admin/sessions" element={<AdminSessionsPanel />} />
+                <Route path="/admin/bookings" element={<AdminBookingsPanel />} />
               </Routes>
             </ErrorBoundary>
           </main>

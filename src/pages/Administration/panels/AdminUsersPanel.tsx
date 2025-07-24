@@ -10,7 +10,7 @@ export default function AdminUsersPanel() {
   const {executeWithErrorHandling} = useErrorHandler();
   const [users, setUsers] = useState<PaginatedResponse<User>>();
 
-  const fetchUsers = async (page : number = 1, limit: number = 10) => {
+  const fetchUsers = async (page : number = 0, limit: number = 10) => {
     await executeWithErrorHandling(
       async () => {
         const res = await fetch(API_DOMAIN + `/users?page=${page}&limit=${limit}`);
