@@ -107,7 +107,7 @@ export default function EnhancedBookingForm({ initialRoomId, onSubmitted }: Enha
                 participantCount: formData.participantCount
             };
 
-            const response = await fetch(API_DOMAIN + '/client/bookings', {
+            const response = await fetch(API_DOMAIN + '/bookings', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

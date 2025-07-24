@@ -19,7 +19,7 @@ export default function Sessions() {
   const loadRooms = async () => {
     await executeWithErrorHandling(
       async () => {
-        const res = await fetch(API_DOMAIN + "/client/rooms");
+        const res = await fetch(API_DOMAIN + "/rooms");
         if (!res.ok) {
           throw new Error(`Erreur ${res.status}: ${res.statusText}`);
         }

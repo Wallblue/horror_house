@@ -141,11 +141,11 @@ export const usersData: User[] = [
 
 
 export const clientHandlers = [
-  http.get("https://maison.hor/client/rooms", () => {
+  http.get("https://maison.hor/rooms", () => {
     return HttpResponse.json(clientRoomsData);
   }),
 
-  http.get("https://maison.hor/client/rooms/:id", ({ params }) => {
+  http.get("https://maison.hor/rooms/:id", ({ params }) => {
     const id = parseInt(params.id as string);
     const room = clientRoomsData.find(r => r.id === id);
     if (!room) {
@@ -154,7 +154,7 @@ export const clientHandlers = [
     return HttpResponse.json(room);
   }),
 
-  http.get("https://maison.hor/client/rooms/:id/slots", ({ params }) => {
+  http.get("https://maison.hor/rooms/:id/slots", ({ params }) => {
     const roomId = parseInt(params.id as string);
     const room = clientRoomsData.find(r => r.id === roomId);
     if (!room) {
@@ -163,7 +163,7 @@ export const clientHandlers = [
     return HttpResponse.json(room.availableSlots || []);
   }),
 
-  http.post("https://maison.hor/client/bookings", async ({ request }) => {
+  http.post("https://maison.hor/bookings", async ({ request }) => {
     const body = await request.json() as BookingPost;
     const room = clientRoomsData.find(r => r.id === body.roomId);
     if (!room) {
@@ -202,7 +202,7 @@ export const clientHandlers = [
     return HttpResponse.json(newBooking, { status: 201 });
   }),
 
-  http.get("https://maison.hor/client/bookings", () => {
+  http.get("https://maison.hor/bookings", () => {
     return HttpResponse.json(bookingsData);
   }),
 
