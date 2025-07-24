@@ -25,6 +25,25 @@ export default function AdminSessionsPanel() {
       }
     );
   };
+  
+  const deleteSession = async (session: Room) => {
+    if (!window.confirm('Êtes-vous sûr de vouloir supprimer cette session ?')) return;
+
+    executeWithErrorHandling(
+      async () => {
+        const res = await fetch(API_DOMAIN + "/rooms/" + session.id, {method: "DELETE"});
+        if (!res.ok) {
+          throw new Error(`Erreur ${res.status}: ${res.statusText}`);
+        }
+      },
+      () => {
+        if (sessions === undefined) return;
+        const newSessions = {...sessions}
+        newSessions.data = sessions.data.filter(b => b.id !== session.id);
+        setSessions(newSessions);
+      }
+    );
+  };
 
   useEffect(() => {
     fetchSessions();
@@ -43,6 +62,7 @@ export default function AdminSessionsPanel() {
           data={sessions}
           updateData={fetchSessions}
           hiddenProps={["description", "availableSlots"]}
+          handleDelete={deleteSession}
           readonlyTable
         />
       )}

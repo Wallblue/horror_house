@@ -26,6 +26,25 @@ export default function AdminBookingsPanel() {
     );
   };
 
+  const deleteBooking = async (booking: Booking) => {
+    if (!window.confirm('Êtes-vous sûr de vouloir supprimer cette réservation ?')) return;
+
+    executeWithErrorHandling(
+      async () => {
+        const res = await fetch(API_DOMAIN + "/bookings/" + booking.id, {method: "DELETE"});
+        if (!res.ok) {
+          throw new Error(`Erreur ${res.status}: ${res.statusText}`);
+        }
+      },
+      () => {
+        if (bookings === undefined) return;
+        const newBookings = {...bookings}
+        newBookings.data = bookings.data.filter(b => b.id !== booking.id);
+        setBookings(newBookings);
+      }
+    );
+  };
+
   useEffect(() => {
     fetchBookings();
   }, []);
@@ -43,6 +62,7 @@ export default function AdminBookingsPanel() {
                 data={bookings}
                 updateData={fetchBookings}
                 hiddenProps={["slotId"]}
+                handleDelete={deleteBooking}
                 readonlyTable
               />
             )}

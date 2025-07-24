@@ -25,6 +25,25 @@ export default function AdminUsersPanel() {
       }
     );
   };
+    
+  const deleteUser = async (user: User) => {
+    if (!window.confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?')) return;
+
+    executeWithErrorHandling(
+      async () => {
+        const res = await fetch(API_DOMAIN + "/users/" + user.id, {method: "DELETE"});
+        if (!res.ok) {
+          throw new Error(`Erreur ${res.status}: ${res.statusText}`);
+        }
+      },
+      () => {
+        if (users === undefined) return;
+        const newUsers = {...users}
+        newUsers.data = users.data.filter(b => b.id !== user.id);
+        setUsers(newUsers);
+      }
+    );
+  };
 
   useEffect(() => {
     fetchUsers();
@@ -42,6 +61,7 @@ export default function AdminUsersPanel() {
           tableHeaders={["ID", "Prénom", "Nom", "Courriel", "Rôle", "Embauche", "Actions"]}
           data={users}
           updateData={fetchUsers}
+          handleDelete={deleteUser}
           readonlyTable
         />
       )}

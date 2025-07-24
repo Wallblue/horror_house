@@ -9,9 +9,10 @@ interface AdminTablePanelProps<T extends object>{
   readonlyTable?: boolean;
   updateData: (page: number, limit: number) => void;
   hiddenProps?: string[];
+  handleDelete: (item: T) => void;
 }
 
-export default function AdminTablePanel<T extends object>({tableHeaders, data, readonlyTable = false, updateData, hiddenProps = []}: AdminTablePanelProps<T>) {
+export default function AdminTablePanel<T extends object>({tableHeaders, data, readonlyTable = false, updateData, hiddenProps = [], handleDelete}: AdminTablePanelProps<T>) {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
@@ -41,7 +42,7 @@ export default function AdminTablePanel<T extends object>({tableHeaders, data, r
               key={i}
               item={shownItem}
               onActionClick={_ => console.log("action")}
-              onDeleteClick={_ => console.log("delete")}
+              onDeleteClick={() => handleDelete(d)}
               readOnly={readonlyTable}
             />)
           })}

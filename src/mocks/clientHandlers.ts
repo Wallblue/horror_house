@@ -141,6 +141,7 @@ export const usersData: User[] = [
 
 
 export const clientHandlers = [
+  // CRUD Rooms
   http.get("https://maison.hor/rooms", ({request}) => {
     const url = new URL(request.url);
     const page = parseInt(url.searchParams.get("page") ?? "0", 10);
@@ -176,6 +177,16 @@ export const clientHandlers = [
     return HttpResponse.json(room.availableSlots || []);
   }),
 
+  http.delete("https://maison.hor/rooms/:id", ({params}) => {
+    const roomIndex = clientRoomsData.findIndex(room => room.id === parseInt(params.id as string, 10));
+    if (roomIndex === -1) {
+      return HttpResponse.json({ error: 'Session non trouvée' }, { status: 404 });
+    }
+    clientRoomsData.splice(roomIndex, 1);
+    return HttpResponse.json({message: "Element deleted."});
+  }),
+
+  // CRUD Bookings
   http.post("https://maison.hor/bookings", async ({ request }) => {
     const body = await request.json() as BookingPost;
     const room = clientRoomsData.find(r => r.id === body.roomId);
@@ -231,6 +242,16 @@ export const clientHandlers = [
     });
   }),
 
+  http.delete("https://maison.hor/bookings/:id", ({params}) => {
+    const bookingIndex = bookingsData.findIndex(resa => resa.id === parseInt(params.id as string, 10));
+    if (bookingIndex === -1) {
+      return HttpResponse.json({ error: 'Réservation non trouvée' }, { status: 404 });
+    }
+    bookingsData.splice(bookingIndex, 1);
+    return HttpResponse.json({message: "Element deleted."});
+  }),
+
+  // CRUD Users
   http.get("https://maison.hor/users", ({request}) => {
     const url = new URL(request.url);
     const page = parseInt(url.searchParams.get("page") ?? "0", 10);
