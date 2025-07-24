@@ -26,18 +26,31 @@ export const darkTheme = createTheme({
   palette: {
     mode: 'dark',
     primary: {
-      main: '#90caf9',
+      main: '#dc2626',
     },
     secondary: {
-      main: '#ce93d8',
+      main: '#7c2d12',
     },
     background: {
-      default: '#121212',
-      paper: '#1e1e1e',
+      default: '#0f0f0f',
+      paper: '#1a1a1a',
+    },
+    text: {
+      primary: '#f5f5f5',
+      secondary: '#b0b0b0',
+    },
+    error: {
+      main: '#ef4444',
+    },
+    warning: {
+      main: '#f59e0b',
+    },
+    success: {
+      main: '#10b981',
     },
   },
   typography: {
-    fontFamily: 'Roboto, sans-serif',
+    fontFamily: '"Creepster", "Roboto", sans-serif',
   },
   shape: {
     borderRadius: 8,
