@@ -62,6 +62,7 @@ export default function AdminBookingsPanel() {
                 data={bookings}
                 updateData={fetchBookings}
                 hiddenProps={["slotId"]}
+                handleAction={() => console.log("action")}
                 handleDelete={deleteBooking}
                 readonlyTable
               />

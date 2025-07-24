@@ -62,6 +62,7 @@ export default function AdminSessionsPanel() {
           data={sessions}
           updateData={fetchSessions}
           hiddenProps={["description", "availableSlots"]}
+          handleAction={() => console.log("action")}
           handleDelete={deleteSession}
           readonlyTable
         />

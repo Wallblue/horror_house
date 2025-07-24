@@ -5,10 +5,14 @@ import { PaginatedResponse, User } from "../../../mocks/types";
 import AdminPanel from "../AdminPanel";
 import AdminTablePanel from "../AdminTablePanel";
 import LoadingSpinner from "../../../components/LoadingSpinner";
+import AdminEditUserModal from "../modals/AdminEditUserModal";
 
 export default function AdminUsersPanel() {
   const {executeWithErrorHandling} = useErrorHandler();
+
   const [users, setUsers] = useState<PaginatedResponse<User>>();
+  const [isOpenedModal, setIsOpenedModal] = useState<boolean>(false);
+  const [editedUser, setEditedUser] = useState<User | null>(null);
 
   const fetchUsers = async (page : number = 0, limit: number = 10) => {
     await executeWithErrorHandling(
@@ -45,6 +49,26 @@ export default function AdminUsersPanel() {
     );
   };
 
+  const openModal = (user: User) => {
+    setEditedUser(user);
+    setIsOpenedModal(true);
+  };
+
+  const onDeleteModal = () => {
+    if (users === undefined || editedUser === null) return;
+    const newUsers = {...users}
+    newUsers.data = users.data.filter(user => user.id !== editedUser.id);
+    setUsers(newUsers);
+  }
+
+  const onEditModal = (user: User) => {
+    if (users === undefined) return;
+    const newUsers = users.data.map(u => {
+      return user.id === u.id ? user : u;
+    });
+    setUsers({...users, data: newUsers})
+  }
+
   useEffect(() => {
     fetchUsers();
   }, []);
@@ -57,13 +81,24 @@ export default function AdminUsersPanel() {
           size="large"
         />
       ) : (
-        <AdminTablePanel
-          tableHeaders={["ID", "Prénom", "Nom", "Courriel", "Rôle", "Embauche", "Actions"]}
-          data={users}
-          updateData={fetchUsers}
-          handleDelete={deleteUser}
-          readonlyTable
-        />
+        <>
+          <AdminTablePanel
+            tableHeaders={["ID", "Prénom", "Nom", "Courriel", "Rôle", "Embauche", "Actions"]}
+            data={users}
+            updateData={fetchUsers}
+            handleAction={openModal}
+            handleDelete={deleteUser}
+            readonlyTable
+          />
+          <AdminEditUserModal
+            isOpened={isOpenedModal}
+            setIsOpened={setIsOpenedModal}
+            editedUser={editedUser}
+            setEditedUser={setEditedUser}
+            onEdit={onEditModal}
+            onDelete={onDeleteModal}
+          />
+        </>
       )}
     </AdminPanel>
   );

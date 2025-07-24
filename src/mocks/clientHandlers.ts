@@ -273,7 +273,8 @@ export const clientHandlers = [
     if (user === undefined) {
       return HttpResponse.json({ error: 'Utilisateur non trouvé' }, { status: 404 });
     }
-    return HttpResponse.json(user);
+    const {password, ...rest} = user;
+    return HttpResponse.json(rest);
   }),
 
   http.post("https://maison.hor/users/", async ({request}) => {
@@ -285,7 +286,8 @@ export const clientHandlers = [
     };
 
     usersData.push(newUser);
-    return HttpResponse.json(newUser);
+    const {password, ...rest} = newUser;
+    return HttpResponse.json(rest);
   }),
 
   http.patch("https://maison.hor/users/:id", async ({params, request}) => {
@@ -303,7 +305,8 @@ export const clientHandlers = [
       user.role = reqBody.role;
     }
 
-    return HttpResponse.json(user);
+    const {password, ...rest} = user;
+    return HttpResponse.json(rest);
   }),
 
   http.delete("https://maison.hor/users/:id", ({params}) => {
