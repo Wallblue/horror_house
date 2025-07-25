@@ -5,10 +5,13 @@ import { API_DOMAIN } from "../../../const";
 import AdminPanel from "../AdminPanel";
 import LoadingSpinner from "../../../components/LoadingSpinner";
 import AdminTablePanel from "../AdminTablePanel";
+import AdminEditSessionModal from "../modals/AdminEditSessionModal";
 
 export default function AdminSessionsPanel() {
   const {executeWithErrorHandling} = useErrorHandler();
   const [sessions, setSessions] = useState<PaginatedResponse<Room>>();
+  const [isOpenedModal, setIsOpenedModal] = useState<boolean>(false);
+  const [editedSession, setEditedSession] = useState<Room | null>(null);
 
   const fetchSessions = async (page: number = 0, limit: number = 10) => {
     executeWithErrorHandling(
@@ -44,6 +47,26 @@ export default function AdminSessionsPanel() {
       }
     );
   };
+  
+    const openModal = (room: Room) => {
+      setEditedSession(room);
+      setIsOpenedModal(true);
+    }
+    
+  const onDeleteModal = () => {
+    if (sessions === undefined || editedSession === null) return;
+    const newSessions = {...sessions}
+    newSessions.data = sessions.data.filter(session => session.id !== editedSession.id);
+    setSessions(newSessions);
+  }
+
+  const onEditModal = (session: Room) => {
+    if (sessions === undefined) return;
+    const newSessions = sessions.data.map(s => {
+      return session.id === s.id ? session : s;
+    });
+    setSessions({...sessions, data: newSessions})
+  }
 
   useEffect(() => {
     fetchSessions();
@@ -57,15 +80,24 @@ export default function AdminSessionsPanel() {
           size="large"
         />
       ) : (
-        <AdminTablePanel
-          tableHeaders={["ID", "Nom", "Thème", "Durée", "Prix", "Participants min", "Participants max", "Actions"]}
-          data={sessions}
-          updateData={fetchSessions}
-          hiddenProps={["description", "availableSlots"]}
-          handleAction={() => console.log("action")}
-          handleDelete={deleteSession}
-          readonlyTable
-        />
+        <>
+          <AdminTablePanel
+            tableHeaders={["ID", "Nom", "Thème", "Durée", "Prix", "Participants min", "Participants max", "Actions"]}
+            data={sessions}
+            updateData={fetchSessions}
+            hiddenProps={["description", "availableSlots"]}
+            handleAction={openModal}
+            handleDelete={deleteSession}
+          />
+          <AdminEditSessionModal
+            isOpened={isOpenedModal}
+            setIsOpened={setIsOpenedModal}
+            editedSession={editedSession}
+            setEditedSession={setEditedSession}
+            onDelete={onDeleteModal}
+            onEdit={onEditModal}
+          />
+        </>
       )}
     </AdminPanel>
   );

@@ -4,6 +4,7 @@ import { useErrorHandler } from "../../../hooks/useErrorHandler";
 import { User, UserPatch } from "../../../mocks/types";
 import AdminModal from "./AdminModal";
 import { useEffect, useState } from "react";
+import SelectInput from "../../../components/SelectInput";
 
 interface AdminUserModalProps{
   isOpened: boolean;
@@ -84,23 +85,15 @@ export default function AdminEditUserModal({isOpened, setIsOpened, editedUser, s
           setEditFormData({ ...editFormData, email: e.target.value })
         }
       />
-      <FormControl fullWidth>
-        <InputLabel id="select-label">Rôle</InputLabel>
-        <Select
-          labelId="select-label"
-          value={editFormData.role}
-          label="Rôle"
-          onChange={e => setEditFormData({
-            ...editFormData,
-            role: e.target.value,
-          })}
-          fullWidth
-        >
-          {USER_ROLES.map(role => (
-            <MenuItem key={role} value={role}>{role}</MenuItem>
-          ))}
-        </Select>
-      </FormControl>
+      <SelectInput
+        label="Rôle"
+        value={editFormData.role}
+        onChange={(e) => setEditFormData({
+          ...editFormData,
+          role: e.target.value,
+        })}
+        selectOptions={USER_ROLES}
+      />
     </AdminModal>
   );
 }

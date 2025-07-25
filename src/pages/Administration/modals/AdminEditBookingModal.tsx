@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { useErrorHandler } from "../../../hooks/useErrorHandler";
-import { Booking, BookingPatch } from "../../../mocks/types";
-import { API_DOMAIN } from "../../../const";
+import { Booking, BookingPatch, Room } from "../../../mocks/types";
+import { API_DOMAIN, BOOKING_STATUS } from "../../../const";
 import AdminModal from "./AdminModal";
 import { TextField } from "@mui/material";
+import SelectInput from "../../../components/SelectInput";
 
 interface AdminBookingModalProps{
   isOpened: boolean;
@@ -17,6 +18,7 @@ interface AdminBookingModalProps{
 export default function AdminEditBookingModal({isOpened, setIsOpened, editedBooking, setEditedBooking, onDelete = ()=>{}, onEdit = ()=>{}} : AdminBookingModalProps) {
   const {executeWithErrorHandling} = useErrorHandler();
   const [editFormData, setEditFormData] = useState<BookingPatch>({});
+  const [sessions, setSessions] = useState<Room[]>([]);
 
   const deleteBooking = async () => {
     if (!editedBooking || !window.confirm('Êtes-vous sûr de vouloir supprimer cette réservation ?')) return;
@@ -57,6 +59,26 @@ export default function AdminEditBookingModal({isOpened, setIsOpened, editedBook
     );
   };
 
+  const fetchSessions = async () => {
+    executeWithErrorHandling(
+      async () => {
+        const res = await fetch(API_DOMAIN + `/rooms?limit=100`);
+        if (!res.ok) {
+          throw new Error(`Erreur ${res.status}: ${res.statusText}`);
+        }
+        const roomsData: Room[] = (await res.json()).data;
+        return roomsData;
+      },
+      (sessionsData) => {
+        setSessions(sessionsData);
+      }
+    );
+  };
+
+  useEffect(() => {
+    fetchSessions();
+  }, [])
+
   useEffect(() => {
     setEditFormData(editedBooking ?? {});
   }, [editedBooking]);
@@ -70,6 +92,16 @@ export default function AdminEditBookingModal({isOpened, setIsOpened, editedBook
       handleDelete={deleteBooking}
       handleEdit={editBooking}
     >
+      <SelectInput
+        label="Session"
+        value={editedBooking.roomId}
+        onChange={e => setEditedBooking({
+          ...editedBooking,
+          roomId: e.target.value,
+        })}
+        selectOptions={sessions.map(s => s.name)}
+        optionValues={sessions.map(s => s.id)}
+      />
       <TextField
         margin="normal"
         fullWidth
@@ -78,6 +110,16 @@ export default function AdminEditBookingModal({isOpened, setIsOpened, editedBook
         onChange={(e) =>
           setEditFormData({ ...editFormData, customerEmail: e.target.value })
         }
+      />
+      <SelectInput
+        label="Statut"
+        value={editedBooking.status}
+        onChange={e => setEditedBooking({
+          ...editedBooking,
+          status: e.target.value,
+        })}
+        selectOptions={Object.values(BOOKING_STATUS)}
+        optionValues={Object.keys(BOOKING_STATUS)}
       />
     </AdminModal>
   );

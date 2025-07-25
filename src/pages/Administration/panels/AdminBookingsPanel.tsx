@@ -53,6 +53,21 @@ export default function AdminBookingsPanel() {
     setEditedBooking(booking);
     setIsOpenedModal(true);
   }
+  
+  const onDeleteModal = () => {
+    if (bookings === undefined || editedBooking === null) return;
+    const newBookings = {...bookings}
+    newBookings.data = bookings.data.filter(booking => booking.id !== editedBooking.id);
+    setBookings(newBookings);
+  }
+
+  const onEditModal = (booking: Booking) => {
+    if (bookings === undefined) return;
+    const newBookings = bookings.data.map(b => {
+      return booking.id === b.id ? booking : b;
+    });
+    setBookings({...bookings, data: newBookings})
+  }
 
   useEffect(() => {
     fetchBookings();
@@ -74,13 +89,14 @@ export default function AdminBookingsPanel() {
                   hiddenProps={["slotId"]}
                   handleAction={openModal}
                   handleDelete={deleteBooking}
-                  readonlyTable
                 />
                 <AdminEditBookingModal
                   isOpened={isOpenedModal}
                   setIsOpened={setIsOpenedModal}
                   editedBooking={editedBooking}
                   setEditedBooking={setEditedBooking}
+                  onDelete={onDeleteModal}
+                  onEdit={onEditModal}
                 />
               </>
             )}
