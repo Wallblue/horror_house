@@ -100,6 +100,11 @@ export interface UserPatch {
   role?: UserRole;
 }
 
+export interface LoginReq {
+  email: string;
+  password: string;
+}
+
 export interface PaginatedResponse<T> {
   data: T[];
   page: number;

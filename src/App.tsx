@@ -12,6 +12,7 @@ import Administration from './pages/Administration/Administration';
 import AdminUsersPanel from './pages/Administration/panels/AdminUsersPanel';
 import AdminSessionsPanel from './pages/Administration/panels/AdminSessionsPanel';
 import AdminBookingsPanel from './pages/Administration/panels/AdminBookingsPanel';
+import LoginPage from './pages/LoginPage';
 
 export default function App() {
   return (
@@ -31,6 +32,7 @@ export default function App() {
                 <Route path="/admin/users" element={<AdminUsersPanel />} />
                 <Route path="/admin/sessions" element={<AdminSessionsPanel />} />
                 <Route path="/admin/bookings" element={<AdminBookingsPanel />} />
+                <Route path="/login" element={<LoginPage />} />
               </Routes>
             </ErrorBoundary>
           </main>

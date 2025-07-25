@@ -1,5 +1,5 @@
 import { http, HttpResponse } from "msw";
-import { Room, TimeSlot, Booking, BookingPost, User, UserPost, UserPatch, PaginatedResponse, UserWithoutPwd, RoomPatch, BookingPatch } from "./types";
+import { Room, TimeSlot, Booking, BookingPost, User, UserPost, UserPatch, PaginatedResponse, UserWithoutPwd, RoomPatch, BookingPatch, LoginReq } from "./types";
 
 const generateTimeSlots = (): TimeSlot[] => {
   const slots: TimeSlot[] = [];
@@ -324,6 +324,16 @@ export const clientHandlers = [
   http.get("https://maison.hor/users/:id", ({params}) => {
     const user = usersData.find(user => user.id === parseInt(params.id as string, 10));
     if (user === undefined) {
+      return HttpResponse.json({ error: 'Utilisateur non trouvé' }, { status: 404 });
+    }
+    const {password, ...rest} = user;
+    return HttpResponse.json(rest);
+  }),
+
+  http.get("https://maison.hor/auth/login", async ({request}) => {
+    const reqBody = await request.json() as LoginReq;
+    const user = usersData.find(u => u.email === reqBody.email && u.password === reqBody.password);
+    if (!user) {
       return HttpResponse.json({ error: 'Utilisateur non trouvé' }, { status: 404 });
     }
     const {password, ...rest} = user;
