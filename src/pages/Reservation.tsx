@@ -7,17 +7,6 @@ import { Booking } from '../mocks/types'
 export default function Reservation() {
   const [searchParams] = useSearchParams();
   const [booking, setBooking] = useState<Booking | null>(null);
-  const [initialRoomId, setInitialRoomId] = useState<number | undefined>();
-
-  useEffect(() => {
-    const roomIdParam = searchParams.get('roomId');
-    if (roomIdParam) {
-      const roomId = parseInt(roomIdParam);
-      if (!isNaN(roomId)) {
-        setInitialRoomId(roomId);
-      }
-    }
-  }, [searchParams]);
 
   const handleBookingSubmitted = (newBooking: Booking) => {
     setBooking(newBooking);
@@ -57,7 +46,7 @@ export default function Reservation() {
         </div>
       ) : (
         <EnhancedBookingForm
-          initialRoomId={initialRoomId}
+          initialRoomId={parseInt(searchParams.get('roomId') ?? '0', 10)}
           onSubmitted={handleBookingSubmitted}
         />
       )}

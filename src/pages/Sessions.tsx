@@ -24,7 +24,6 @@ export default function Sessions() {
           throw new Error(`Erreur ${res.status}: ${res.statusText}`);
         }
         const roomsData: PaginatedResponse<Room> = await res.json();
-        console.log(roomsData);
         return roomsData.data;
       },
       (roomsData) => {

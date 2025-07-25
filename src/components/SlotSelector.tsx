@@ -37,6 +37,16 @@ export default function SlotSelector({
     }
   }, [selectedRoomId, rooms]);
 
+  useEffect(() => {
+    if (selectedRoomId && rooms.length > 0 && !selectedRoom) {
+      const room = rooms.find(r => r.id === selectedRoomId);
+      if (room) {
+        setSelectedRoom(room);
+        onRoomChange?.(room.id, room);
+      }
+    }
+  }, [rooms]);
+
   const loadRooms = async () => {
     await executeWithErrorHandling(
       async () => {
@@ -110,7 +120,7 @@ export default function SlotSelector({
         <label htmlFor="room-select">Session d'escape game *</label>
         <select
           id="room-select"
-          value={selectedRoom?.id || ''}
+          value={selectedRoomId || selectedRoom?.id || ''}
           onChange={handleRoomChange}
           className={styles.input}
           required

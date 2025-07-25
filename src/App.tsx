@@ -7,6 +7,7 @@ import Sessions from './pages/Sessions';
 import Reservation from './pages/Reservation';
 import Contact from './pages/Contact';
 import Mentions from './pages/Mentions';
+import NotFound from './pages/NotFound';
 import styles from './css/App.module.css';
 import Administration from './pages/Administration/Administration';
 import AdminUsersPanel from './pages/Administration/panels/AdminUsersPanel';
@@ -33,6 +34,7 @@ export default function App() {
                 <Route path="/admin/sessions" element={<AdminSessionsPanel />} />
                 <Route path="/admin/bookings" element={<AdminBookingsPanel />} />
                 <Route path="/login" element={<LoginPage />} />
+                <Route path="*" element={<NotFound />} />
               </Routes>
             </ErrorBoundary>
           </main>
