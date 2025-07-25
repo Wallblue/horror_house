@@ -25,7 +25,7 @@ export default function EnhancedBookingForm({ initialRoomId, onSubmitted }: Enha
         slotId: 0,
         participantCount: 1
     });
-    
+
     const [selectedRoom, setSelectedRoom] = useState<Room | null>(null);
     const [selectedSlot, setSelectedSlot] = useState<TimeSlot | null>(null);
     const [errors, setErrors] = useState<string[]>([]);
@@ -89,7 +89,7 @@ export default function EnhancedBookingForm({ initialRoomId, onSubmitted }: Enha
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        
+
         const validationErrors = validateForm();
         if (validationErrors.length > 0) {
             setErrors(validationErrors);
@@ -120,8 +120,8 @@ export default function EnhancedBookingForm({ initialRoomId, onSubmitted }: Enha
                 throw new Error(errorData.error || 'Erreur lors de la réservation');
             }
 
-            const booking : PaginatedResponse<Booking> = await response.json();
-            onSubmitted(booking.data);
+            const booking: Booking = await response.json();
+            onSubmitted(booking);
         } catch (error) {
             setErrors([error instanceof Error ? error.message : 'Erreur lors de la réservation']);
         } finally {
