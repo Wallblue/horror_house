@@ -64,5 +64,3 @@ export default function Reservation() {
     </div>
   )
 }
-
-type Field = Omit<FormFieldProps, 'onChange'>

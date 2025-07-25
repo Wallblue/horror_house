@@ -5,7 +5,7 @@ import LoadingSpinner from '../components/LoadingSpinner'
 import ErrorAlert from '../components/ErrorAlert'
 import { useErrorHandler } from '../hooks/useErrorHandler'
 import { API_DOMAIN } from '../const';
-import { Room } from '../mocks/types';
+import { PaginatedResponse, Room } from '../mocks/types';
 
 export default function Sessions() {
   const [rooms, setRooms] = useState<Room[]>([]);
@@ -19,12 +19,13 @@ export default function Sessions() {
   const loadRooms = async () => {
     await executeWithErrorHandling(
       async () => {
-        const res = await fetch(API_DOMAIN + "/client/rooms");
+        const res = await fetch(API_DOMAIN + "/rooms");
         if (!res.ok) {
           throw new Error(`Erreur ${res.status}: ${res.statusText}`);
         }
-        const roomsData: Room[] = await res.json();
-        return roomsData;
+        const roomsData: PaginatedResponse<Room> = await res.json();
+        console.log(roomsData);
+        return roomsData.data;
       },
       (roomsData) => {
         setRooms(roomsData);

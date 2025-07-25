@@ -2,7 +2,7 @@ import { useState } from 'react';
 import SlotSelector from './SlotSelector';
 import FormField from './FormField';
 import Button from './Button';
-import { Room, TimeSlot, BookingPost } from '../mocks/types';
+import { Room, TimeSlot, BookingPost, PaginatedResponse, Booking } from '../mocks/types';
 import { API_DOMAIN } from '../const';
 import styles from '../css/App.module.css';
 
@@ -25,7 +25,7 @@ export default function EnhancedBookingForm({ initialRoomId, onSubmitted }: Enha
         slotId: 0,
         participantCount: 1
     });
-    
+
     const [selectedRoom, setSelectedRoom] = useState<Room | null>(null);
     const [selectedSlot, setSelectedSlot] = useState<TimeSlot | null>(null);
     const [errors, setErrors] = useState<string[]>([]);
@@ -89,7 +89,7 @@ export default function EnhancedBookingForm({ initialRoomId, onSubmitted }: Enha
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        
+
         const validationErrors = validateForm();
         if (validationErrors.length > 0) {
             setErrors(validationErrors);
@@ -107,7 +107,7 @@ export default function EnhancedBookingForm({ initialRoomId, onSubmitted }: Enha
                 participantCount: formData.participantCount
             };
 
-            const response = await fetch(API_DOMAIN + '/client/bookings', {
+            const response = await fetch(API_DOMAIN + '/bookings', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -120,7 +120,7 @@ export default function EnhancedBookingForm({ initialRoomId, onSubmitted }: Enha
                 throw new Error(errorData.error || 'Erreur lors de la réservation');
             }
 
-            const booking = await response.json();
+            const booking: Booking = await response.json();
             onSubmitted(booking);
         } catch (error) {
             setErrors([error instanceof Error ? error.message : 'Erreur lors de la réservation']);

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Room, TimeSlot } from '../mocks/types';
+import { PaginatedResponse, Room, TimeSlot } from '../mocks/types';
 import { API_DOMAIN } from '../const';
 import LoadingSpinner from './LoadingSpinner';
 import ErrorAlert from './ErrorAlert';
@@ -40,12 +40,12 @@ export default function SlotSelector({
   const loadRooms = async () => {
     await executeWithErrorHandling(
       async () => {
-        const res = await fetch(API_DOMAIN + "/client/rooms");
+        const res = await fetch(API_DOMAIN + "/rooms");
         if (!res.ok) {
           throw new Error(`Erreur ${res.status}: ${res.statusText}`);
         }
-        const roomsData: Room[] = await res.json();
-        return roomsData;
+        const roomsData: PaginatedResponse<Room> = await res.json();
+        return roomsData.data;
       },
       (roomsData) => {
         setRooms(roomsData);
