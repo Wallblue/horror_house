@@ -5,10 +5,14 @@ import { API_DOMAIN } from "../../../const";
 import AdminPanel from "../AdminPanel";
 import LoadingSpinner from "../../../components/LoadingSpinner";
 import AdminTablePanel from "../AdminTablePanel";
+import AdminEditBookingModal from "../modals/AdminEditBookingModal";
 
 export default function AdminBookingsPanel() {
   const {executeWithErrorHandling} = useErrorHandler();
+
   const [bookings, setBookings] = useState<PaginatedResponse<Booking>>();
+  const [isOpenedModal, setIsOpenedModal] = useState<boolean>(false);
+  const [editedBooking, setEditedBooking] = useState<Booking | null>(null);
 
   const fetchBookings = async (page: number = 0, limit: number = 10) => {
     executeWithErrorHandling(
@@ -45,6 +49,11 @@ export default function AdminBookingsPanel() {
     );
   };
 
+  const openModal = (booking: Booking) => {
+    setEditedBooking(booking);
+    setIsOpenedModal(true);
+  }
+
   useEffect(() => {
     fetchBookings();
   }, []);
@@ -57,15 +66,23 @@ export default function AdminBookingsPanel() {
                 size="large"
               />
             ) : (
-              <AdminTablePanel
-                tableHeaders={["ID", "Session", "Client", "Participants", "Créée le", "Statut", "Actions"]}
-                data={bookings}
-                updateData={fetchBookings}
-                hiddenProps={["slotId"]}
-                handleAction={() => console.log("action")}
-                handleDelete={deleteBooking}
-                readonlyTable
-              />
+              <>
+                <AdminTablePanel
+                  tableHeaders={["ID", "Session", "Client", "Participants", "Créée le", "Statut", "Actions"]}
+                  data={bookings}
+                  updateData={fetchBookings}
+                  hiddenProps={["slotId"]}
+                  handleAction={openModal}
+                  handleDelete={deleteBooking}
+                  readonlyTable
+                />
+                <AdminEditBookingModal
+                  isOpened={isOpenedModal}
+                  setIsOpened={setIsOpenedModal}
+                  editedBooking={editedBooking}
+                  setEditedBooking={setEditedBooking}
+                />
+              </>
             )}
     </AdminPanel>
   );

@@ -32,7 +32,6 @@ export default function AdminEditUserModal({isOpened, setIsOpened, editedUser, s
         onDelete();
         setEditedUser(null);
         setIsOpened(false);
-        onCancel();
       }
     );
   };
@@ -55,12 +54,9 @@ export default function AdminEditUserModal({isOpened, setIsOpened, editedUser, s
         setEditedUser(user);
         onEdit(user);
         setIsOpened(false);
-        onCancel();
       }
     );
   };
-
-  const onCancel = () => {};
 
   useEffect(() => {
     if (editedUser) {
@@ -75,7 +71,6 @@ export default function AdminEditUserModal({isOpened, setIsOpened, editedUser, s
       title={`Modification de ${editedUser.firstName} ${editedUser.lastName}`}
       isOpened={isOpened}
       setIsOpened={setIsOpened}
-      onCancel={onCancel}
       item={editedUser}
       handleDelete={deleteUser}
       handleEdit={editUser}

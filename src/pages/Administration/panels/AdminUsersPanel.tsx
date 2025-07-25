@@ -88,7 +88,6 @@ export default function AdminUsersPanel() {
             updateData={fetchUsers}
             handleAction={openModal}
             handleDelete={deleteUser}
-            readonlyTable
           />
           <AdminEditUserModal
             isOpened={isOpenedModal}

@@ -1,5 +1,5 @@
 import { http, HttpResponse } from "msw";
-import { Room, TimeSlot, Booking, BookingPost, User, UserPost, UserPatch, PaginatedResponse, UserWithoutPwd } from "./types";
+import { Room, TimeSlot, Booking, BookingPost, User, UserPost, UserPatch, PaginatedResponse, UserWithoutPwd, RoomPatch, BookingPatch } from "./types";
 
 const generateTimeSlots = (): TimeSlot[] => {
   const slots: TimeSlot[] = [];
@@ -186,6 +186,37 @@ export const clientHandlers = [
     return HttpResponse.json({message: "Element deleted."});
   }),
 
+  http.patch("https://maison.hor/rooms/:id", async ({params, request}) => {
+    const body = await request.json() as RoomPatch;
+    const room = clientRoomsData.find(r => r.id === parseInt(params.id as string, 10));
+    if (room === undefined) {
+      return HttpResponse.json({ error: 'Session non trouvée' }, { status: 404 });
+    }
+
+    if (body.name)
+      room.name = body.name;
+
+    if (body.description)
+      room.description = body.description;
+
+    if (body.theme)
+      room.theme = body.theme;
+
+    if (body.duration)
+      room.duration = body.duration;
+
+    if (body.price)
+      room.price = body.price;
+
+    if (body.minParticipants)
+      room.minParticipants = body.minParticipants;
+
+    if (body.maxParticipants)
+      room.maxParticipants = body.maxParticipants;
+
+    return HttpResponse.json(room);
+  }),
+
   // CRUD Bookings
   http.post("https://maison.hor/bookings", async ({ request }) => {
     const body = await request.json() as BookingPost;
@@ -251,6 +282,28 @@ export const clientHandlers = [
     return HttpResponse.json({message: "Element deleted."});
   }),
 
+  http.patch("https://maison.hor/bookings/:id", async ({params, request}) => {
+    const body = await request.json() as BookingPatch;
+    const booking = bookingsData.find(b => b.id === parseInt(params.id as string, 10));
+    if (booking === undefined) {
+      return HttpResponse.json({ error: 'Réservation non trouvée' }, { status: 404 });
+    }
+
+    if (body.roomId)
+      booking.roomId = body.roomId;
+
+    if (body.slotId)
+      booking.slotId = body.slotId;
+
+    if (body.customerEmail)
+      booking.customerEmail = body.customerEmail;
+
+    if (body.status)
+      booking.status = body.status;
+
+    return HttpResponse.json(booking);
+  }),
+
   // CRUD Users
   http.get("https://maison.hor/users", ({request}) => {
     const url = new URL(request.url);
@@ -292,7 +345,7 @@ export const clientHandlers = [
 
   http.patch("https://maison.hor/users/:id", async ({params, request}) => {
     const reqBody = await request.json() as UserPatch;
-    const user = usersData.find(user => user.id === parseInt(params.id as string, 10));
+    const user = usersData.find(u => u.id === parseInt(params.id as string, 10));
     if (user === undefined) {
       return HttpResponse.json({ error: 'Utilisateur non trouvé' }, { status: 404 });
     }
